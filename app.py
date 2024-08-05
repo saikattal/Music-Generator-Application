@@ -4,6 +4,37 @@ from transformers import MusicgenForConditionalGeneration, AutoProcessor
 import os
 import numpy as np
 
+# Set up the page configuration
+st.set_page_config(
+    page_title="MusicGen App",
+    page_icon="🎵",  # You can also use a local path to an image or an emoji
+    layout="centered",
+    initial_sidebar_state="auto",
+)
+
+# Custom CSS for background image and other styles
+background_image_url = "https://i.imgur.com/T47F1kl.jpeg"  # Direct URL to the background image on Imgur
+
+st.markdown(
+    f"""
+    <style>
+    .stApp {{
+        background-image: url("{background_image_url}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }}
+    .stTitle {{
+        color: #FF0000
+;
+    }}
+
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Set up the app title
 st.title("MusicGen App")
 
@@ -28,7 +59,9 @@ if model is not None and processor is not None:
     sampling_rate = model.config.audio_encoder.sampling_rate
 
     # User input
-    text_input = st.text_input("Enter text to generate music:", "a soulful piano track")
+    st.markdown("**Enter text to generate music:**")
+    text_input = st.text_input("", "a soulful piano track")
+    #text_input = st.text_input("Enter text to generate music:", "a soulful piano track")
 
     # Generate music button
     if st.button("Generate Music"):
